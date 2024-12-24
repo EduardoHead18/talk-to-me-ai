@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "regenerator-runtime/runtime";
 import SpeechRecognition, {
   useSpeechRecognition,
@@ -8,10 +8,12 @@ import { FaMicrophone } from "react-icons/fa";
 import { BsFillSendFill } from "react-icons/bs";
 import { RiResetLeftFill } from "react-icons/ri";
 import { ChatComponent } from "./ChatComponent";
+import { clear, log } from "console";
 export const HomeComponent = () => {
   const [browserSupport, setBrowserSupport] = useState(true);
   const [finishedRecordig, setFinishedRecordig] = useState(false);
-  const [messageSend, setMessageSend] = useState<string>("idk");
+  const [messageSend, setMessageSend] = useState<string>();
+  const [clearMessageState, setClearMessageState] = useState<boolean>(false);
 
   const {
     transcript,
@@ -39,12 +41,19 @@ export const HomeComponent = () => {
   };
 
   const stopListeningRecognition = async () => {
+    console.log("what u said: ", transcript);
     await SpeechRecognition.stopListening();
     setTimeout(() => {
      setMessageSend(transcript)
     }, 1000);
     setFinishedRecordig(true);
   };
+
+  const clearMessageFunction = () => {
+      resetTranscript();
+      setClearMessageState(true);
+  }
+
 
   return (
     <div className="flex flex-col h-screen">
@@ -57,7 +66,7 @@ export const HomeComponent = () => {
           {/*chat*/}
           <main className="flex-grow mt-10">
             {finishedRecordig && (
-              <ChatComponent messageMe={messageSend}></ChatComponent>
+              <ChatComponent  messageMe={messageSend}></ChatComponent>
             )}
           </main>
 
@@ -79,7 +88,7 @@ export const HomeComponent = () => {
               <RiResetLeftFill
                 className="hover:cursor-pointer text-white hover:text-green-500 transition-colors"
                 size={30}
-                onClick={resetTranscript}
+                onClick={clearMessageFunction}
               />
             </div>
           </div>

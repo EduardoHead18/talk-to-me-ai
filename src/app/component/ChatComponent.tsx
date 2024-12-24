@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 
 interface ChatComponentProps {
-    messageMe: string;
+    messageMe: string | undefined;
   }
 export const ChatComponent: React.FC<ChatComponentProps> = ({messageMe}) => {
     
@@ -30,7 +30,7 @@ export const ChatComponent: React.FC<ChatComponentProps> = ({messageMe}) => {
         userMessageAdd()
       }, [messageMe]);
 
-
+  
   return (
     <div className="p-4 space-y-4">
       {messages.map((message, index) => (
