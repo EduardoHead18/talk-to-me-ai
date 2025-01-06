@@ -49,11 +49,14 @@ export const HomeComponent = () => {
     setFinishedRecordig(true);
   };
 
-  const clearMessageFunction = () => {
-      resetTranscript();
-      setClearMessageState(true);
+  const speak = () => {
+    const voice = window.speechSynthesis;
+    const speech = new SpeechSynthesisUtterance(messageSend);
+    speech.lang = "en-US";
+    voice.speak(speech);
   }
 
+  console.log("key: ",process.env.API_KEY_GEMINI)
 
   return (
     <div className="flex flex-col h-screen">
@@ -88,7 +91,13 @@ export const HomeComponent = () => {
               <RiResetLeftFill
                 className="hover:cursor-pointer text-white hover:text-green-500 transition-colors"
                 size={30}
-                onClick={clearMessageFunction}
+                onClick={resetTranscript}
+              />
+
+<RiResetLeftFill
+                className="hover:cursor-pointer text-white hover:text-green-500 transition-colors"
+                size={30}
+                onClick={speak}
               />
             </div>
           </div>
