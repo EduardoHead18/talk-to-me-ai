@@ -44,7 +44,7 @@ export const HomeComponent = () => {
     console.log("what u said: ", transcript);
     await SpeechRecognition.stopListening();
     setTimeout(() => {
-     setMessageSend(transcript)
+      setMessageSend(transcript);
     }, 1000);
     setFinishedRecordig(true);
   };
@@ -54,14 +54,14 @@ export const HomeComponent = () => {
     const speech = new SpeechSynthesisUtterance(messageSend);
     speech.lang = "en-US";
     voice.speak(speech);
-  }
+  };
 
-  console.log("key: ",process.env.API_KEY_GEMINI)
+  console.log("key: ", process.env.API_KEY_GEMINI);
 
   return (
     <div className="flex flex-col h-screen">
       {browserSupport ? (
-        <div className="flex flex-col flex-grow justify-center px-52 py-10">
+        <div className="flex flex-col flex-grow justify-center px-10 lg:px-52 py-10">
           <h1 className="text-2xl text-center font-bold">
             Talk English with AI
           </h1>
@@ -69,7 +69,7 @@ export const HomeComponent = () => {
           {/*chat*/}
           <main className="flex-grow mt-10">
             {finishedRecordig && (
-              <ChatComponent  messageMe={messageSend}></ChatComponent>
+              <ChatComponent messageMe={messageSend}></ChatComponent>
             )}
           </main>
 
@@ -94,7 +94,7 @@ export const HomeComponent = () => {
                 onClick={resetTranscript}
               />
 
-<RiResetLeftFill
+              <RiResetLeftFill
                 className="hover:cursor-pointer text-white hover:text-green-500 transition-colors"
                 size={30}
                 onClick={speak}
