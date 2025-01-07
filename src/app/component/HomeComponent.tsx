@@ -8,12 +8,10 @@ import { FaMicrophone } from "react-icons/fa";
 import { BsFillSendFill } from "react-icons/bs";
 import { RiResetLeftFill } from "react-icons/ri";
 import { ChatComponent } from "./ChatComponent";
-import { clear, log } from "console";
 export const HomeComponent = () => {
   const [browserSupport, setBrowserSupport] = useState(true);
   const [finishedRecordig, setFinishedRecordig] = useState(false);
   const [messageSend, setMessageSend] = useState<string>();
-  const [clearMessageState, setClearMessageState] = useState<boolean>(false);
 
   const {
     transcript,
@@ -49,14 +47,6 @@ export const HomeComponent = () => {
     setFinishedRecordig(true);
   };
 
-  const speak = () => {
-    const voice = window.speechSynthesis;
-    const speech = new SpeechSynthesisUtterance(messageSend);
-    speech.lang = "en-US";
-    voice.speak(speech);
-  };
-
-  console.log("key: ", process.env.API_KEY_GEMINI);
 
   return (
     <div className="flex flex-col h-screen">
@@ -68,6 +58,9 @@ export const HomeComponent = () => {
 
           {/*chat*/}
           <main className="flex-grow mt-10">
+            <div className="p-4 flex justify-start bg-gray-200 text-black max-w-xs rounded-lg ">
+              Hi, let's talk dude!
+            </div>
             {finishedRecordig && (
               <ChatComponent messageMe={messageSend}></ChatComponent>
             )}
@@ -94,11 +87,6 @@ export const HomeComponent = () => {
                 onClick={resetTranscript}
               />
 
-              <RiResetLeftFill
-                className="hover:cursor-pointer text-white hover:text-green-500 transition-colors"
-                size={30}
-                onClick={speak}
-              />
             </div>
           </div>
         </div>
