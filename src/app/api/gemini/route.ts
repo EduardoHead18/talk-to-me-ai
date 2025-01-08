@@ -29,8 +29,8 @@ export async function POST(req: NextRequest) {
 
   const prompt = `You are my friendly chat buddy. Please respond in casual English and be a bit rude. User said: "${message}"`;
   const result = await model.generateContent(prompt);
-  const response = await result.response;
-  const text = await response.text();
+  const response = result.response;
+  const text = response.text();
 
 
   console.log("response:", text);

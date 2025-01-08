@@ -4,12 +4,13 @@ import React, { useState, useEffect } from "react";
 interface ChatComponentProps {
   messageMe: string | undefined;
 }
+
 export const ChatComponent: React.FC<ChatComponentProps> = ({ messageMe }) => {
   const [messages, setMessages] = useState<
     { text: string; sender: "user" | "ai" }[]
   >([]);
 
-  // Función para agregar nuevos mensajes
+  // function to add new message
   const addMessageFunction = (text: string, sender: "user" | "ai") => {
     setMessages((prevMessages) => [...prevMessages, { text, sender }]);
   };
@@ -50,7 +51,7 @@ export const ChatComponent: React.FC<ChatComponentProps> = ({ messageMe }) => {
   }, [messageMe]);
 
   return (
-    <div className="p-4 space-y-4">
+    <div className="mb-5 space-y-4">
       {messages.map((message, index) => (
         <div
           key={index}
@@ -61,7 +62,7 @@ export const ChatComponent: React.FC<ChatComponentProps> = ({ messageMe }) => {
           <div
             className={`max-w-xs p-3 rounded-lg ${
               message.sender === "user"
-                ? "bg-blue-500 text-white"
+                ? "border-solid border-2 border-orange-400 text-white"
                 : "bg-gray-200 text-black"
             }`}
           >
