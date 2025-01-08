@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import "regenerator-runtime/runtime";
 import SpeechRecognition, {
   useSpeechRecognition,
@@ -26,11 +26,8 @@ export const HomeComponent = () => {
   useEffect(() => {
     if (!browserSupportsSpeechRecognition) {
       setBrowserSupport(false);
-      console.log("Speech recognition is not supported");
-    } else {
-      console.log("Speech recognition is supported");
-    }
-  }, []);
+    } 
+  }, [browserSupportsSpeechRecognition]);
 
   const startListening = () => {
     try {
@@ -42,7 +39,6 @@ export const HomeComponent = () => {
   };
 
   const stopListeningRecognition = async () => {
-    console.log("what u said: ", transcript);
     await SpeechRecognition.stopListening();
     setTimeout(() => {
       setMessageSend(transcript);
@@ -61,7 +57,7 @@ export const HomeComponent = () => {
           {/*chat*/}
           <main className="flex-grow mt-10">
             <div className="p-4 mb-4 flex justify-start bg-gray-200 text-black max-w-xs rounded-lg ">
-              Hi, let's talk dude!
+              Hi, let&apos;s talk dude!
             </div>
             {finishedRecordig && (
               <ChatComponent messageMe={messageSend}></ChatComponent>

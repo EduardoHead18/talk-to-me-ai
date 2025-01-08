@@ -16,7 +16,7 @@ export const ChatComponent: React.FC<ChatComponentProps> = ({ messageMe }) => {
   };
 
   const userMessageAdd = async () => {
-    let responseApi = await getApi();
+    const responseApi = await getApi();
     if (messageMe) {
       addMessageFunction(messageMe, "user");
       setTimeout(() => {
@@ -48,7 +48,7 @@ export const ChatComponent: React.FC<ChatComponentProps> = ({ messageMe }) => {
 
   useEffect(() => {
     userMessageAdd();
-  }, [messageMe]);
+  }, [messageMe, userMessageAdd]);
 
   return (
     <div className="mb-5 space-y-4">
