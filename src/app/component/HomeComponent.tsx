@@ -27,7 +27,7 @@ export const HomeComponent = () => {
     if (!browserSupportsSpeechRecognition) {
       setBrowserSupport(false);
     } 
-  }, [browserSupportsSpeechRecognition]);
+  }, []);
 
   const startListening = () => {
     try {

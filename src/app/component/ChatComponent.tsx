@@ -48,7 +48,7 @@ export const ChatComponent: React.FC<ChatComponentProps> = ({ messageMe }) => {
 
   useEffect(() => {
     userMessageAdd();
-  }, [messageMe, userMessageAdd]);
+  }, [messageMe]);
 
   return (
     <div className="mb-5 space-y-4">
