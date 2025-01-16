@@ -4,7 +4,13 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 
 const genAI = new GoogleGenerativeAI(process.env.API_KEY_GEMINI!);
 
+interface Ichat {
+  role: "user" | "model";
+  parts: { text: string }[];
+}
+
 const configGemini = {
+  model: "gemini-1.5-flash",
   stopSequences: ["red"],
   maxOutputTokens: 100,
   temperature: 0.9,
@@ -12,13 +18,20 @@ const configGemini = {
   topK: 16,
 };
 
-const model = genAI.getGenerativeModel({
-  model: "gemini-1.5-flash",
-  ...configGemini,
-});
+const prompt =
+  "You are my friendly chat buddy. Please respond in casual English and be a bit rude.";
 
-export async function POST(req: NextRequest) {
-  const {message} = await req.json();
+const model = genAI.getGenerativeModel({ ...configGemini });
+
+let chatHistory: Ichat[] = [
+  {
+    role: "user",
+    parts: [{ text: prompt }],
+  },
+];
+
+export async function POST(req: NextRequest): Promise<NextResponse> {
+  const { message } = await req.json();
 
   if (!message || message.trim() === "") {
     return NextResponse.json(
@@ -27,10 +40,18 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const prompt = `You are my friendly chat buddy. Please respond in casual English and be a bit rude. User said: "${message}"`;
-  const result = await model.generateContent(prompt);
-  const response = result.response;
-  const text = response.text();
-  
-  return NextResponse.json({ message: text});
+  const chat = model.startChat({
+    history: chatHistory,
+  });
+
+  try {
+    let result = await chat.sendMessage(message);
+    chatHistory.push({
+      role: "model",
+      parts: [{ text: result.response.text() }],
+    });
+    return NextResponse.json({ message: result.response.text() });
+  } catch (error) {
+    return NextResponse.json({ error: error }, { status: 500 });
+  }
 }

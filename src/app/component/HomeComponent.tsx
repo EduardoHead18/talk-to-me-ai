@@ -47,7 +47,7 @@ export const HomeComponent = () => {
   };
 
   return (
-    <div className="flex flex-col h-screen">
+    <div className="flex flex-col h-screen md:w-1/2 md:mx-auto">
       {browserSupport ? (
         <div className="flex flex-col flex-grow justify-center px-10 lg:px-52 py-10">
           <h1 className={`text-2xl text-center font-bold text-white ${volkhov.className}`}>
