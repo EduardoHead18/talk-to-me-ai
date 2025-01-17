@@ -42,7 +42,7 @@ export const HomeComponent = () => {
     await SpeechRecognition.stopListening();
     setTimeout(() => {
       setMessageSend(transcript);
-    }, 1000);
+    }, 100);
     setFinishedRecordig(true);
   };
 

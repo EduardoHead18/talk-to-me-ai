@@ -23,7 +23,7 @@ export const ChatComponent: React.FC<ChatComponentProps> = ({ messageMe }) => {
       setTimeout(() => {
         addMessageFunction(responseApi, "ai");
         speak(responseApi);
-      }, 1000);
+      }, 100);
     }
   };
 
