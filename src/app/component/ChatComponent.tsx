@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 interface ChatComponentProps {
   messageMe: string | undefined;
@@ -9,6 +9,7 @@ export const ChatComponent: React.FC<ChatComponentProps> = ({ messageMe }) => {
   const [messages, setMessages] = useState<
     { text: string; sender: "user" | "ai" }[]
   >([]);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
 
   // function to add new message
   const addMessageFunction = (text: string, sender: "user" | "ai") => {
@@ -50,8 +51,13 @@ export const ChatComponent: React.FC<ChatComponentProps> = ({ messageMe }) => {
     userMessageAdd();
   }, [messageMe]);
 
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
+
   return (
-    <div className="mb-5 space-y-4">
+    <div className="mb-24 space-y-4">
       {messages.map((message, index) => (
         <div
           key={index}
@@ -70,6 +76,7 @@ export const ChatComponent: React.FC<ChatComponentProps> = ({ messageMe }) => {
           </div>
         </div>
       ))}
+      <div ref={messagesEndRef}></div>
     </div>
   );
 };
