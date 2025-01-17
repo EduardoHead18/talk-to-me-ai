@@ -7,10 +7,10 @@ import SpeechRecognition, {
 import { FaMicrophone } from "react-icons/fa";
 import { BsFillSendFill } from "react-icons/bs";
 import { RiResetLeftFill } from "react-icons/ri";
-import { ChatComponent } from "./ChatComponent";
-import { Volkhov } from "next/font/google";
+import { ChatComponent } from "../chat-components/ChatComponent";
+import HeaderComponent from "./header/HeaderComponent";
 
-const volkhov = Volkhov({ subsets: ["latin"], weight: "700" });
+
 export const HomeComponent = () => {
   const [browserSupport, setBrowserSupport] = useState(true);
   const [finishedRecordig, setFinishedRecordig] = useState(false);
@@ -50,13 +50,8 @@ export const HomeComponent = () => {
     <div className="flex flex-col h-screen md:px-80">
       {browserSupport ? (
         <>
-          <section className="flex justify-center bg-black right-0 py-2 fixed w-full shadow-xl shadow-black">
-            <h1
-              className={`text-2xl  font-bold text-white ${volkhov.className} `}
-            >
-              Speak English with AI 🤖
-            </h1>
-          </section>
+        
+        <HeaderComponent/>
 
           {/*chat*/}
           <main className="flex-grow mt-20 mx-2 mb-40">
