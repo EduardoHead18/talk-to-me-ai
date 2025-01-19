@@ -8,8 +8,6 @@ import { FaMicrophone } from "react-icons/fa";
 import { BsFillSendFill } from "react-icons/bs";
 import { RiResetLeftFill } from "react-icons/ri";
 import { ChatComponent } from "../chat-components/ChatComponent";
-import HeaderComponent from "./header/HeaderComponent";
-
 
 export const HomeComponent = () => {
   const [browserSupport, setBrowserSupport] = useState(true);
@@ -47,12 +45,9 @@ export const HomeComponent = () => {
   };
 
   return (
-    <div className="flex flex-col h-screen md:px-80">
+    <div className="flex flex-col h-screen">
       {browserSupport ? (
         <>
-        
-        <HeaderComponent/>
-
           {/*chat*/}
           <main className="flex-grow mt-20 mx-2 mb-40">
             <div className="p-4 mb-4 flex justify-start bg-gray-200 text-black max-w-xs rounded-lg ">
