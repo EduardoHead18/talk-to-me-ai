@@ -38,14 +38,14 @@ function ConfigurationPromptPage() {
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
       event.preventDefault();
-      console.log(newPrompt);
+      handleAddPrompt(event); //pasar evento para detectar el enter
     }
   };
 
   const handleAddPrompt = (event: React.FormEvent) => {
     event.preventDefault();
     console.log("New prompt added:", newPrompt);
-    setNewPrompt("");
+    setNewPrompt(""); // agrega los prompt a la lista idk
     addNewPrompt();
   };
 
@@ -59,6 +59,7 @@ function ConfigurationPromptPage() {
         
       });
       counter++;
+      // setErrorPrompt(false);
     }
   };
 
