@@ -63,7 +63,7 @@ function ConfigurationPromptPage() {
   };
 
   const openModal = () => {
-    if (newPrompt === "") {
+    if (newPrompt === "" || newPrompt.length < 4) {
       console.log("error en el prompt");
       setErrorPrompt(true);
       return;
@@ -74,6 +74,7 @@ function ConfigurationPromptPage() {
       documentVar.showModal();
     }
   };
+
 
   return (
     <div className="h-screen pt-24 bg-black">
