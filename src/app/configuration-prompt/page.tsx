@@ -5,15 +5,17 @@ import { Modal } from "../component/reusable/Modal";
 
 let initialPromptList: IPromptList[] = [
   {
+    id: 1,
     name: "rude",
     promt:
       "You are my friendly chat buddy. Please respond in casual English and be a bit rude.",
   },
   {
+    id:2,
     name: "loving",
     promt:
       "You are my friendly chat buddy. Please respond in casual English and be a bit rude.",
-  },
+  }
 ];
 
 function ConfigurationPromptPage() {
@@ -55,6 +57,7 @@ function ConfigurationPromptPage() {
     setPromptList((list) => [
       ...list,
       {
+        id:promptList.length + 1,
         name: newPrompt,
         promt: newPrompt,
       },
@@ -77,14 +80,14 @@ function ConfigurationPromptPage() {
 
 
   return (
-    <div className="h-screen pt-24 bg-black">
+    <div className="h-screen pt-24 bg-black ">
       <h1 className="md:text-2xl font-medium mr-4 mb-4">
         Choose a personality for your AI chat
       </h1>
 
-      <div className="mb-10">
-        {promptList.map((item, index) => (
-          <div key={index} className="form-control">
+      <div className="mb-10 h-48 overflow-y-auto">
+        {promptList.map((item) => (
+          <div key={item.id} className="form-control">
             <label className="label cursor-pointer">
               <span className="label-text">{item.name}</span>
               <input
