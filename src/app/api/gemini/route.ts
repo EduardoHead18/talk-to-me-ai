@@ -33,9 +33,9 @@ let chatHistory: Ichat[] = [
 export async function POST(req: NextRequest): Promise<NextResponse> {
   const { message } = await req.json();
 
-  if (!message || message.trim() === "") {
+  if (!message || message.trim() === "" || message.trim().length < 5) {
     return NextResponse.json(
-      { error: "No user message found" },
+      { error: "No user message or short message found, you must write a message of more than 5 characters" },
       { status: 400 }
     );
   }
