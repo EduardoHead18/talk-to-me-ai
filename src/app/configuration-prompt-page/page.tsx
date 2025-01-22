@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { ToastError } from "../component/ErrorToast";
+import { ToastError } from "../component/reusable/ErrorToast";
 import { Modal } from "../component/reusable/Modal";
 
 let initialPromptList: IPromptList[] = [

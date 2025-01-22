@@ -7,7 +7,7 @@ import SpeechRecognition, {
 import { FaMicrophone } from "react-icons/fa";
 import { BsFillSendFill } from "react-icons/bs";
 import { RiResetLeftFill } from "react-icons/ri";
-import { ChatComponent } from "../chat-components/ChatComponent";
+import { ChatComponent } from "../component/chat-components/ChatComponent";
 
 export const HomeComponent = () => {
   const [browserSupport, setBrowserSupport] = useState(true);

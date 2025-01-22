@@ -9,9 +9,9 @@ export const SideBarComponent = () => {
     <div>
    
     <ul className='space-y-10 px-3 mt-10'>
-          <li><Link href="/dashboard">Dashbord</Link></li>
+          <li><Link href="/">Home</Link></li>
           <li><Link href="/account">Account</Link></li>
-          <li><Link href="/configuration-prompt/">Configuration prompt</Link></li>
+          <li><Link href="/configuration-prompt-page/">Configuration prompt</Link></li>
         </ul>
     </div>
     </>
