@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
-import { ToastError } from "../component/ToastError";
+import { ToastError } from "../component/ErrorToast";
+import { Modal } from "../component/reusable/Modal";
 
 let initialPromptList: IPromptList[] = [
   {
@@ -16,17 +17,19 @@ let initialPromptList: IPromptList[] = [
 ];
 
 function ConfigurationPromptPage() {
-
-
   const [selectedOption, setSelectedOption] = useState("loving");
   const [newPrompt, setNewPrompt] = useState("");
-  const [promptList, setPromptList] = useState<IPromptList[]>(initialPromptList);
+  const [promptList, setPromptList] =
+    useState<IPromptList[]>(initialPromptList);
   const [errorPrompt, setErrorPrompt] = useState(false);
+
   let counter = 0;
   //select a option promp
   const handleOptionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedOption(event.target.value);
   };
+
+  //update the option selected in the checkbox
   useEffect(() => {
     console.log("Selected option:", selectedOption);
   }, [selectedOption]);
@@ -45,21 +48,37 @@ function ConfigurationPromptPage() {
   const handleAddPrompt = (event: React.FormEvent) => {
     event.preventDefault();
     console.log("New prompt added:", newPrompt);
-    setNewPrompt(""); // agrega los prompt a la lista idk
     addNewPrompt();
   };
 
+  //update initialPromptList array
+  useEffect(() => {
+    console.log("update list");
+  }, [initialPromptList]);
+
   const addNewPrompt = () => {
-    if (newPrompt === "") setErrorPrompt(true);
-    else {
-      console.log(newPrompt)
-      promptList.push({
+    console.log(newPrompt);
+    setPromptList((list) => [
+      ...list,
+      {
         name: newPrompt,
         promt: newPrompt,
-        
-      });
-      counter++;
-      // setErrorPrompt(false);
+      },
+    ]);
+    setNewPrompt("");
+
+  };
+
+  const openModal = () => {
+    if (newPrompt === "") {
+      console.log("error en el prompt");
+      setErrorPrompt(true);
+      return;
+    }
+    setErrorPrompt(false);
+    const documentVar: any = document.getElementById("my_modal_1");
+    if (documentVar) {
+      documentVar.showModal();
     }
   };
 
@@ -92,8 +111,11 @@ function ConfigurationPromptPage() {
           Write a new personality (promt)
         </h2>
         <p>
-          Example: Me gustaria que admires mi progreso en el ingles, que seas
-          una IA amable.
+          Example:{" "}
+          <span className="text-orange-500">
+            Me gustaria que admires mi progreso en el ingles, que seas una IA
+            amable.
+          </span>
         </p>
         <div className="flex flex-row justify-between mt-3">
           <input
@@ -104,15 +126,17 @@ function ConfigurationPromptPage() {
             onKeyDown={handleKeyDown}
             value={newPrompt}
           />
-          <button
-            onClick={handleAddPrompt}
-            className="btn btn-active btn-accent"
-          >
+          <button onClick={openModal} className="btn btn-active btn-accent">
             Add prompt
           </button>
         </div>
       </div>
-      {errorPrompt ? <ToastError /> : ""} 
+      {errorPrompt ? <ToastError /> : ""}
+      <Modal
+        title={"Save prompt"}
+        description={`Do u wanna save this prompt? : ${newPrompt}`}
+        action={addNewPrompt}
+      />
     </div>
   );
 }
