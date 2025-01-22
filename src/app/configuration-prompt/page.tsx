@@ -23,7 +23,6 @@ function ConfigurationPromptPage() {
     useState<IPromptList[]>(initialPromptList);
   const [errorPrompt, setErrorPrompt] = useState(false);
 
-  let counter = 0;
   //select a option promp
   const handleOptionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedOption(event.target.value);
@@ -39,16 +38,12 @@ function ConfigurationPromptPage() {
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === "Enter") {
-      event.preventDefault();
-      handleAddPrompt(event); //pasar evento para detectar el enter
-    }
-  };
+    if (event.key !== "Enter") return;
 
-  const handleAddPrompt = (event: React.FormEvent) => {
     event.preventDefault();
-    console.log("New prompt added:", newPrompt);
-    addNewPrompt();
+  
+    setErrorPrompt(false);
+    openModal()
   };
 
   //update initialPromptList array
@@ -57,7 +52,6 @@ function ConfigurationPromptPage() {
   }, [initialPromptList]);
 
   const addNewPrompt = () => {
-    console.log(newPrompt);
     setPromptList((list) => [
       ...list,
       {
@@ -66,7 +60,6 @@ function ConfigurationPromptPage() {
       },
     ]);
     setNewPrompt("");
-
   };
 
   const openModal = () => {
