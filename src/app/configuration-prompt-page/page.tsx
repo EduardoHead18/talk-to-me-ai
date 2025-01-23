@@ -2,6 +2,8 @@
 import { useState, useEffect } from "react";
 import { ToastError } from "../component/reusable/ErrorToast";
 import { Modal } from "../component/reusable/Modal";
+import { motion } from "motion/react";
+import { animate } from "motion";
 
 let initialPromptList: IPromptList[] = [
   {
@@ -11,12 +13,24 @@ let initialPromptList: IPromptList[] = [
       "You are my friendly chat buddy. Please respond in casual English and be a bit rude.",
   },
   {
-    id:2,
+    id: 2,
     name: "loving",
     promt:
       "You are my friendly chat buddy. Please respond in casual English and be a bit rude.",
-  }
+  },
 ];
+
+//transition animation
+const transition = {
+  duration: 0.8,
+  delay: 0.5,
+  ease: [0, 0.71, 0.2, 1.01],
+};
+const variants = {
+  hidden: { opacity: 0, y: -20 },
+  visible: { opacity: 1, y: 0 },
+};
+
 
 function ConfigurationPromptPage() {
   const [selectedOption, setSelectedOption] = useState("loving");
@@ -43,9 +57,9 @@ function ConfigurationPromptPage() {
     if (event.key !== "Enter") return;
 
     event.preventDefault();
-  
+
     setErrorPrompt(false);
-    openModal()
+    openModal();
   };
 
   //update initialPromptList array
@@ -57,7 +71,7 @@ function ConfigurationPromptPage() {
     setPromptList((list) => [
       ...list,
       {
-        id:promptList.length + 1,
+        id: promptList.length + 1,
         name: newPrompt,
         promt: newPrompt,
       },
@@ -87,7 +101,14 @@ function ConfigurationPromptPage() {
 
       <div className="mb-10 h-32 overflow-y-auto">
         {promptList.map((item) => (
-          <div key={item.id} className="form-control">
+          <motion.div
+            key={item.id}
+            initial="hidden"
+            animate="visible"
+            variants={variants}
+            transition={transition}
+            className="form-control"
+          >
             <label className="label cursor-pointer">
               <span className="label-text">{item.name}</span>
               <input
@@ -99,7 +120,7 @@ function ConfigurationPromptPage() {
                 className="radio radio-warning"
               />
             </label>
-          </div>
+          </motion.div>
         ))}
       </div>
 
