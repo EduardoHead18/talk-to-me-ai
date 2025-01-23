@@ -1,6 +1,7 @@
 "use server";
 import { NextRequest, NextResponse } from "next/server";
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import { listPrompt } from "../utils/list-prompt";
 
 const genAI = new GoogleGenerativeAI(process.env.API_KEY_GEMINI!);
 
@@ -18,20 +19,22 @@ const configGemini = {
   topK: 16,
 };
 
-const prompt =
+const defaultPrompt =
   "You are my friendly chat buddy. Please respond in casual English and be a bit rude.";
 
 const model = genAI.getGenerativeModel({ ...configGemini });
 
-let chatHistory: Ichat[] = [
-  {
-    role: "user",
-    parts: [{ text: prompt }],
-  },
-];
 
-export async function POST(req: NextRequest): Promise<NextResponse> {
+export async function POST(req: NextRequest, promptUser:string): Promise<NextResponse> {
   const { message } = await req.json();
+  const promptSelected = listPrompt.find((item) => item.isSelected === true);
+  let chatHistory: Ichat[] = [
+    {
+      role: "user",
+      parts: [{ text:  promptSelected?.prompt || defaultPrompt }],
+    },
+  ];
+  
 
   if (!message || message.trim() === "" || message.trim().length < 5) {
     return NextResponse.json(
