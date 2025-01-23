@@ -8,6 +8,7 @@ import { FaMicrophone } from "react-icons/fa";
 import { BsFillSendFill } from "react-icons/bs";
 import { RiResetLeftFill } from "react-icons/ri";
 import { ChatComponent } from "../component/chat-components/ChatComponent";
+import { motion } from "motion/react";
 
 export const HomeComponent = () => {
   const [browserSupport, setBrowserSupport] = useState(true);
@@ -45,7 +46,16 @@ export const HomeComponent = () => {
   };
 
   return (
-    <div className="flex flex-col h-screen">
+    <motion.div
+    initial={{ opacity: 0, scale: 1 }}
+    animate={{ opacity: 1 }}
+    transition={{
+      duration: 0.8,
+      delay: 0.2,
+      ease: [0, 0.71, 0.2, 1.01],
+  }}
+
+    className="flex flex-col h-screen">
       {browserSupport ? (
         <>
           {/*chat*/}
@@ -87,6 +97,6 @@ export const HomeComponent = () => {
       ) : (
         <p>Speech recognition is not supported by this browser</p>
       )}
-    </div>
+    </motion.div>
   );
 };
