@@ -10,7 +10,7 @@ const HeaderComponent: React.FC = () => {
   return (
     <section className="flex md:px-80 px-2 justify-between right-0 py-5 fixed w-full shadow-xl bg-black shadow-black">
       <Link href={"/"} className={`text-2xl  font-bold text-white ${volkhov.className} `}>
-        Speak English with AI 🤖
+        Talk to me AI 🤖
       </Link>
       <div className="relative group">
         <ButtonDrawerComponent></ButtonDrawerComponent>

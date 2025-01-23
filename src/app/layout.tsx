@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Speak english AI 🤖",
+  title: "Talk to me AI",
   description: "Application for speak and learn english with AI",
 };
 
