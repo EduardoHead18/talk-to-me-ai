@@ -85,7 +85,7 @@ function ConfigurationPromptPage() {
         Choose a personality for your AI chat
       </h1>
 
-      <div className="mb-10 h-48 overflow-y-auto">
+      <div className="mb-10 h-32 overflow-y-auto">
         {promptList.map((item) => (
           <div key={item.id} className="form-control">
             <label className="label cursor-pointer">
