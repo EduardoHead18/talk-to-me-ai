@@ -4,7 +4,7 @@ import { SideBarComponent } from "./SideBarComponent";
 
 export const ButtonDrawerComponent = () => {
   return (
-    <div className="drawer">
+    <div className="drawer z-50">
       <input
         id="my-drawer"
         type="checkbox"

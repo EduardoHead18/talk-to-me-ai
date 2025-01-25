@@ -16,9 +16,11 @@
 # next.js
 /.next/
 /out/
-
+postgres/*
 # production
 /build
+
+docker-compose.yml
 
 # misc
 .DS_Store

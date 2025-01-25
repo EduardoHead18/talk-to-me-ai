@@ -1,4 +1,5 @@
 "use client";
+import { postApiGemini } from "@/app/services/post-api-gemini";
 import React, { useState, useEffect, useRef } from "react";
 
 interface ChatComponentProps {
@@ -17,7 +18,7 @@ export const ChatComponent: React.FC<ChatComponentProps> = ({ messageMe }) => {
   };
 
   const userMessageAdd = async () => {
-    const responseApi = await getApi();
+    const responseApi = await postApiGemini(messageMe!);
     if (messageMe) {
       addMessageFunction(messageMe, "user");
       setTimeout(() => {
@@ -27,18 +28,6 @@ export const ChatComponent: React.FC<ChatComponentProps> = ({ messageMe }) => {
     }
   };
 
-  //getApi
-  const getApi = async (): Promise<string> => {
-    const response = await fetch("api/gemini", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ message: messageMe }),
-    });
-    const data = await response.json();
-    return data.message;
-  };
   //speak AI
   const speak = (textToPlay : string) => {
     const voice = window.speechSynthesis;

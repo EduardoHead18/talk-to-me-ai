@@ -25,7 +25,7 @@ const defaultPrompt =
 const model = genAI.getGenerativeModel({ ...configGemini });
 
 
-export async function POST(req: NextRequest, promptUser:string): Promise<NextResponse> {
+export async function POST(req: NextRequest): Promise<NextResponse> {
   const { message } = await req.json();
   const promptSelected = listPrompt.find((item) => item.isSelected === true);
   let chatHistory: Ichat[] = [

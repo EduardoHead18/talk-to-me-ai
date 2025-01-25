@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
-import { ToastError } from "../component/reusable/ErrorToast";
-import { Modal } from "../component/reusable/Modal";
+import { ToastError } from "../components/reusable/ErrorToast";
+import { Modal } from "../components/reusable/Modal";
 import { motion } from "motion/react";
 import { animate } from "motion";
 
@@ -31,7 +31,6 @@ const variants = {
   visible: { opacity: 1, y: 0 },
 };
 
-
 function ConfigurationPromptPage() {
   const [selectedOption, setSelectedOption] = useState("loving");
   const [newPrompt, setNewPrompt] = useState("");
@@ -55,7 +54,6 @@ function ConfigurationPromptPage() {
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key !== "Enter") return;
-
     event.preventDefault();
 
     setErrorPrompt(false);
@@ -86,12 +84,38 @@ function ConfigurationPromptPage() {
       return;
     }
     setErrorPrompt(false);
+    sendPromptToApi();
     const documentVar: any = document.getElementById("my_modal_1");
     if (documentVar) {
       documentVar.showModal();
     }
   };
 
+  const sendPromptToApi = async () => {
+    try {
+      await fetch("api/gemini/create-prompt/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: newPrompt,
+        }),
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  
+  const getAllPrompts = async () => {
+    try {
+      const response = await fetch("api/gemini/");
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <div className="h-screen pt-24 bg-black ">
