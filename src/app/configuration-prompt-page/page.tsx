@@ -3,24 +3,12 @@ import { useState, useEffect } from "react";
 import { ToastError } from "../components/reusable/ErrorToast";
 import { Modal } from "../components/reusable/Modal";
 import { motion } from "motion/react";
-import { animate } from "motion";
+import {
+  getPromptListLocalStorage,
+  savePromptListLocalStorage,
+} from "../utils/local-storage/prompt-list-storage";
 
-let initialPromptList: IPromptList[] = [
-  {
-    id: 1,
-    name: "rude",
-    promt:
-      "You are my friendly chat buddy. Please respond in casual English and be a bit rude.",
-  },
-  {
-    id: 2,
-    name: "loving",
-    promt:
-      "You are my friendly chat buddy. Please respond in casual English and be a bit rude.",
-  },
-];
-
-//transition animation
+//transition config animation
 const transition = {
   duration: 0.8,
   delay: 0.5,
@@ -34,11 +22,15 @@ const variants = {
 function ConfigurationPromptPage() {
   const [selectedOption, setSelectedOption] = useState("loving");
   const [newPrompt, setNewPrompt] = useState("");
-  const [promptList, setPromptList] =
-    useState<IPromptList[]>(initialPromptList);
+  const [promptList, setPromptList] = useState<IPromptList[]>([]);
   const [errorPrompt, setErrorPrompt] = useState(false);
 
-  //select a option promp
+  // load the status with the localstorage data (avoid passing getStorage directly in the prompt list state to prevent rendering in each update)
+  useEffect(() => {
+    const storedPromptList = getPromptListLocalStorage();
+    setPromptList(storedPromptList);
+  }, []);
+  //update
   const handleOptionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedOption(event.target.value);
   };
@@ -60,20 +52,18 @@ function ConfigurationPromptPage() {
     openModal();
   };
 
-  //update initialPromptList array
-  useEffect(() => {
-    console.log("update list");
-  }, [initialPromptList]);
-
   const addNewPrompt = () => {
-    setPromptList((list) => [
-      ...list,
+    const updatePromptList = [
+      ...promptList,
       {
         id: promptList.length + 1,
         name: newPrompt,
-        promt: newPrompt,
+        prompt: newPrompt,
       },
-    ]);
+    ];
+
+    setPromptList(updatePromptList);
+    savePromptListLocalStorage(updatePromptList);
     setNewPrompt("");
   };
 
@@ -84,38 +74,13 @@ function ConfigurationPromptPage() {
       return;
     }
     setErrorPrompt(false);
-    sendPromptToApi();
+
+    getPromptListLocalStorage();
     const documentVar: any = document.getElementById("my_modal_1");
     if (documentVar) {
       documentVar.showModal();
     }
   };
-
-  const sendPromptToApi = async () => {
-    try {
-      await fetch("api/gemini/create-prompt/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: newPrompt,
-        }),
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  
-  const getAllPrompts = async () => {
-    try {
-      const response = await fetch("api/gemini/");
-      const data = await response.json();
-      console.log(data);
-    } catch (error) {
-      console.log(error);
-    }
-  }
 
   return (
     <div className="h-screen pt-24 bg-black ">
