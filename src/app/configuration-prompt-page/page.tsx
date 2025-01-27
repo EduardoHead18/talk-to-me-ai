@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import { ToastError } from "../components/reusable/ErrorToast";
 import { Modal } from "../components/reusable/Modal";
 import { motion } from "motion/react";
+import { IoSaveOutline } from "react-icons/io5";
+
 import {
   getPromptListLocalStorage,
   savePromptListLocalStorage,
@@ -58,7 +60,7 @@ function ConfigurationPromptPage() {
       {
         id: promptList.length + 1,
         prompt: newPrompt,
-        isSelected:false
+        isSelected: false,
       },
     ];
 
@@ -84,9 +86,12 @@ function ConfigurationPromptPage() {
 
   return (
     <div className="h-screen pt-24 bg-black ">
-      <h1 className="md:text-2xl font-medium mr-4 mb-4">
-        Choose a personality for your AI chat
-      </h1>
+      <div className="flex  items-center justify-between mb-6">
+        <h1 className="md:text-2xl font-medium mr-4 mb-4">
+          Choose a personality for your AI chat
+        </h1>
+        <button className="btn btn-warning"><IoSaveOutline /> save</button>
+      </div>
 
       <div className="mb-10 h-32 overflow-y-auto">
         {promptList.map((item) => (
@@ -109,13 +114,14 @@ function ConfigurationPromptPage() {
                 className="radio radio-warning"
               />
             </label>
+            <hr />
           </motion.div>
         ))}
       </div>
 
       <div className="">
         <h2 className="md:text-2xl font-medium mr-4 mb-4">
-          Write a new personality (promt)
+          Write a new personality (prompt)
         </h2>
         <p>
           Example:{" "}
