@@ -57,8 +57,8 @@ function ConfigurationPromptPage() {
       ...promptList,
       {
         id: promptList.length + 1,
-        name: newPrompt,
         prompt: newPrompt,
+        isSelected:false
       },
     ];
 
@@ -99,12 +99,12 @@ function ConfigurationPromptPage() {
             className="form-control"
           >
             <label className="label cursor-pointer">
-              <span className="label-text">{item.name}</span>
+              <span className="label-text">{item.prompt}</span>
               <input
                 type="radio"
                 name="aiPersonality"
-                value={item.name}
-                checked={selectedOption === item.name}
+                value={item.prompt}
+                checked={selectedOption === item.prompt}
                 onChange={handleOptionChange}
                 className="radio radio-warning"
               />

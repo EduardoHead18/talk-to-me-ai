@@ -1,6 +1,6 @@
 interface IPromptList {
     id: number;
-    name: string;
     prompt: string;
+    isSelected: boolean;
   }
   
