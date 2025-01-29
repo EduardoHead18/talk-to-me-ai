@@ -9,6 +9,7 @@ import {
   getPromptListLocalStorage,
   savePromptListLocalStorage,
 } from "../utils/local-storage/prompt-list-storage";
+import { sendPromptToApi } from "../services/post-api-gemini";
 
 //transition config animation
 const transition = {
@@ -30,7 +31,14 @@ function ConfigurationPromptPage() {
   // load the status with the localstorage data (avoid passing getStorage directly in the prompt list state to prevent rendering in each update)
   useEffect(() => {
     const storedPromptList = getPromptListLocalStorage();
+    const selectedOptionFromStorage = storedPromptList.find(
+      (p) => p.isSelected
+    );
     setPromptList(storedPromptList);
+    if (selectedOptionFromStorage) {
+      setSelectedOption(selectedOptionFromStorage.prompt);
+    }
+    console.log("valor de true:" , selectedOptionFromStorage)
   }, []);
   //update
   const handleOptionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -64,6 +72,7 @@ function ConfigurationPromptPage() {
       },
     ];
 
+
     setPromptList(updatePromptList);
     savePromptListLocalStorage(updatePromptList);
     setNewPrompt("");
@@ -84,13 +93,18 @@ function ConfigurationPromptPage() {
     }
   };
 
+  const sendToApiLocalStorage = async () => await sendPromptToApi(promptList)
+    
+
   return (
     <div className="h-screen pt-24 bg-black ">
       <div className="flex  items-center justify-between mb-6">
         <h1 className="md:text-2xl font-medium mr-4 mb-4">
           Choose a personality for your AI chat
         </h1>
-        <button className="btn btn-warning"><IoSaveOutline /> save</button>
+        <button onClick={sendToApiLocalStorage} className="btn btn-warning">
+          <IoSaveOutline /> save
+        </button>
       </div>
 
       <div className="mb-10 h-32 overflow-y-auto">

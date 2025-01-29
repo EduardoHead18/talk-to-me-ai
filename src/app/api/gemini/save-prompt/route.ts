@@ -1,26 +1,43 @@
-import { NextApiRequest, NextApiResponse } from "next";
+"use server";
 import { listPrompt } from "../../utils/list-prompt";
+import { NextRequest, NextResponse } from "next/server";
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
-  if (req.method === "POST") {
-    const { id, prompt, isSelected } = req.body;
+export async function POST(req: NextRequest, res: NextResponse) {
+  const body = await req.json();
+  const prompts: IPromptList[] = body;
 
-    if (!prompt || typeof prompt !== 'string' || prompt.trim() === '') {
-        return res.status(400).json({ message: "Prompt is required and cannot be empty" });
+  if (!Array.isArray(prompts) || prompts.length === 0) {
+    console.log("error 1:", prompts);
+    return NextResponse.json(
+      {
+        error: "Prompt list is required and cannot be empty",
+      },
+      { status: 400 }
+    );
+  }
+
+  try {
+    prompts.forEach(({ id, prompt, isSelected }) => {
+      if (!prompt || typeof prompt !== "string" || prompt.trim() === "") {
+        throw new Error("Invalid prompt data");
       }
-      
-    try {
-      listPrompt.push({
-        id: id,
-        prompt: prompt,
-        isSelected: isSelected,
-      });
-      res.status(200).json({ message: "Data saved successfully" });
-    } catch (error) {
-      res.status(405).json({ message: "Method not allowed" });
-    }
+      listPrompt.push({ id, prompt, isSelected });
+    });
+    //Data saved successfully
+    console.log("success:", prompts);
+    return NextResponse.json(
+      {
+        error: "Data saved successfully",
+      },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.log("error 1:", prompts);
+    return NextResponse.json(
+      {
+        error: "error",
+      },
+      { status: 400 }
+    );
   }
 }
