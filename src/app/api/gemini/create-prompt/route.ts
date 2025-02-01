@@ -1,11 +1,12 @@
 "use server";
 import { NextRequest, NextResponse } from "next/server";
-import { listPrompt } from "../../utils/list-prompt";
+import { getPrompts, savePrompts } from "../../utils/list-prompt";
+
 
 export async function POST(req: NextRequest): Promise<NextResponse> {
   const { id, prompt, isSelected } = await req.json();
 
-  //valid promt
+  // Validación del prompt
   if (!prompt || prompt.trim() === "" || prompt.trim().length < 5) {
     return NextResponse.json(
       {
@@ -17,9 +18,12 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   }
 
   try {
-    listPrompt.push({ id, prompt: prompt, isSelected });
+    const prompts = getPrompts();
+
+    prompts.push({ id, prompt, isSelected });
+    savePrompts(prompts);
     return NextResponse.json({
-      mesage: listPrompt.map((item) => item.prompt),
+      message: prompts.map((item: { prompt: string }) => item.prompt),
       status: 200,
     });
   } catch (error) {

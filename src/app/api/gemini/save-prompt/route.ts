@@ -1,6 +1,8 @@
 "use server";
-import { listPrompt } from "../../utils/list-prompt";
 import { NextRequest, NextResponse } from "next/server";
+import { savePrompts } from "../../utils/list-prompt";
+
+
 
 export async function POST(req: NextRequest, res: NextResponse) {
   const body = await req.json();
@@ -17,27 +19,16 @@ export async function POST(req: NextRequest, res: NextResponse) {
   }
 
   try {
-    prompts.forEach(({ id, prompt, isSelected }) => {
+    prompts.forEach(({ prompt }) => {
       if (!prompt || typeof prompt !== "string" || prompt.trim() === "") {
         throw new Error("Invalid prompt data");
       }
-      listPrompt.push({ id, prompt, isSelected });
     });
-    //Data saved successfully
-    console.log("success:", prompts);
-    return NextResponse.json(
-      {
-        error: "Data saved successfully",
-      },
-      { status: 200 }
-    );
+    //save json
+    savePrompts(prompts);
+
+    return NextResponse.json({ message: "Data saved successfully" }, { status: 200 });
   } catch (error) {
-    console.log("error 1:", prompts);
-    return NextResponse.json(
-      {
-        error: "error",
-      },
-      { status: 400 }
-    );
+    return NextResponse.json({ error: "Error saving prompts" }, { status: 400 });
   }
 }

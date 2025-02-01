@@ -1,7 +1,7 @@
 "use server";
 import { NextRequest, NextResponse } from "next/server";
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import { listPrompt } from "../utils/list-prompt";
+import { getPrompts } from "../../utils/list-prompt";
 
 const genAI = new GoogleGenerativeAI(process.env.API_KEY_GEMINI!);
 
@@ -27,15 +27,21 @@ const model = genAI.getGenerativeModel({ ...configGemini });
 
 export async function POST(req: NextRequest): Promise<NextResponse> {
   const { message } = await req.json();
-  const promptSelected = listPrompt.find((item) => item.isSelected === true);
+  const prompts: IPromptList[] = getPrompts();
+    // 👇 Temporalmente, usa un array fijo en lugar de getPrompts()
+    // const prompts: IPromptList[] = [
+    //   {id:8, prompt: "Hello!", isSelected: true }
+    // ];
+  const promptSelected = prompts.find((item: IPromptList) => item.isSelected === true);
+  if(!promptSelected) return NextResponse.json({error: "No prompt selected"}, {status: 400});
+  
   let chatHistory: Ichat[] = [
     {
       role: "user",
-      parts: [{ text:  promptSelected?.prompt || defaultPrompt }],
+      parts: [{ text:  promptSelected.prompt || defaultPrompt }],
     },
   ];
   
-
   if (!message || message.trim() === "" || message.trim().length < 5) {
     return NextResponse.json(
       { error: "No user message or short message found, you must write a message of more than 5 characters" },

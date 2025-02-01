@@ -2,7 +2,7 @@ let initialPromptList: IPromptList[] = [
   {
     id: 1,
     prompt:
-      "You are my friendly chat buddy. Please respond in casual English and be a bit rude.",
+      "You are my friendly chat buddy. Please respond in casual English and be a little sassy, but still fun and kind.",
     isSelected: true,
   },
   {
@@ -21,3 +21,4 @@ export const getPromptListLocalStorage = (): IPromptList[] => {
   const promptList = localStorage.getItem("promptList");
   return promptList ? JSON.parse(promptList) : initialPromptList;
 };
+
