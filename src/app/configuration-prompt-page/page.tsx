@@ -23,7 +23,7 @@ const variants = {
 };
 
 function ConfigurationPromptPage() {
-  const [selectedOption, setSelectedOption] = useState("loving");
+  const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [newPrompt, setNewPrompt] = useState("");
   const [promptList, setPromptList] = useState<IPromptList[]>([]);
   const [errorPrompt, setErrorPrompt] = useState(false);
@@ -38,17 +38,19 @@ function ConfigurationPromptPage() {
     if (selectedOptionFromStorage) {
       setSelectedOption(selectedOptionFromStorage.prompt);
     }
-    console.log("valor de true:" , selectedOptionFromStorage)
   }, []);
+
   //update
   const handleOptionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedOption(event.target.value);
+    setPromptList(prevPromptList =>
+      prevPromptList.map(prompt =>
+        prompt.prompt === event.target.value
+          ? { ...prompt, isSelected: true }
+          : { ...prompt, isSelected: false }
+      )
+    );
   };
-
-  //update the option selected in the checkbox
-  useEffect(() => {
-    console.log("Selected option:", selectedOption);
-  }, [selectedOption]);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setNewPrompt(event.target.value);
@@ -72,7 +74,6 @@ function ConfigurationPromptPage() {
       },
     ];
 
-
     setPromptList(updatePromptList);
     savePromptListLocalStorage(updatePromptList);
     setNewPrompt("");
@@ -93,7 +94,14 @@ function ConfigurationPromptPage() {
     }
   };
 
-  const sendToApiLocalStorage = async () => await sendPromptToApi(promptList)
+  const sendToApiLocalStorage = async () => {
+    try {
+      await sendPromptToApi(promptList)
+      console.log("Prompts sent to API successfully");
+    } catch (error) {
+      console.log(error)
+    }
+  }
     
 
   return (
@@ -117,13 +125,14 @@ function ConfigurationPromptPage() {
             transition={transition}
             className="form-control"
           >
+            
             <label className="label cursor-pointer">
               <span className="label-text">{item.prompt}</span>
               <input
                 type="radio"
                 name="aiPersonality"
                 value={item.prompt}
-                checked={selectedOption === item.prompt}
+                checked={selectedOption === item.prompt} 
                 onChange={handleOptionChange}
                 className="radio radio-warning"
               />

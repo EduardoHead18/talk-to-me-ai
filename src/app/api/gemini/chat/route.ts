@@ -59,7 +59,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
       role: "model",
       parts: [{ text: result.response.text() }],
     });
-    return NextResponse.json({ message: result.response.text() });
+    return NextResponse.json({ message: result.response.text(), promptSelected }, {status:200});
   } catch (error) {
     return NextResponse.json({ error: error }, { status: 500 });
   }
