@@ -1,7 +1,7 @@
 "use server";
 import { NextRequest, NextResponse } from "next/server";
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import { getPrompts } from "../../utils/list-prompt";
+import { getPrompts } from "../../utils/create-json-list";
 
 const genAI = new GoogleGenerativeAI(process.env.API_KEY_GEMINI!);
 
@@ -23,7 +23,6 @@ const defaultPrompt =
   "You are my friendly chat buddy. Please respond in casual English and be a bit rude.";
 
 const model = genAI.getGenerativeModel({ ...configGemini });
-
 
 export async function POST(req: NextRequest): Promise<NextResponse> {
   const { message } = await req.json();

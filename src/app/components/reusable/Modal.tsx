@@ -1,8 +1,7 @@
-export const Modal : React.FC<ModalProps> = ({title, description, action}) => {
+export const Modal : React.FC<IModalProps> = ({title, description, action}) => {
   return (
     <>
       {/* Open the modal using document.getElementById('ID').showModal() method */}
-    
       <dialog id="my_modal_1" className="modal">
         <div className="modal-box">
           <h3 className="font-bold text-lg">{title}</h3>

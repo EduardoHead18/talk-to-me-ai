@@ -9,7 +9,6 @@ if (!fs.existsSync(dataDir)) {
   fs.mkdirSync(dataDir);
 }
 
-
 // Verifica si el archivo existe, si no, lo crea con un prompt por defecto.
 if (!fs.existsSync(filePath)) {
   fs.writeFileSync(

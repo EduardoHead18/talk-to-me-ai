@@ -1,7 +1,6 @@
 "use server";
 import { NextRequest, NextResponse } from "next/server";
-import { getPrompts, savePrompts } from "../../utils/list-prompt";
-
+import { getPrompts, savePrompts } from "../../utils/create-json-list";
 
 export async function POST(req: NextRequest): Promise<NextResponse> {
   const { id, prompt, isSelected } = await req.json();

@@ -1,5 +1,5 @@
 export const postApiGemini = async (messageMe:string): Promise<string> => {
-    const response = await fetch("api/gemini", {
+    const response = await fetch("api/gemini/chat", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

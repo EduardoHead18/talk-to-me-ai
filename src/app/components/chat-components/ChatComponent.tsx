@@ -44,7 +44,6 @@ export const ChatComponent: React.FC<ChatComponentProps> = ({ messageMe }) => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-
   return (
     <div className="mb-24 space-y-4">
       {messages.map((message, index) => (
