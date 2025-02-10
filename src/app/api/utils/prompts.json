@@ -17,11 +17,21 @@
   {
     "id": 4,
     "prompt": "keloke",
-    "isSelected": true
+    "isSelected": false
   },
   {
     "id": 5,
     "prompt": "hola",
+    "isSelected": false
+  },
+  {
+    "id": 6,
+    "prompt": "Me gustaria que admires mi progreso en el ingles, que seas una IA amable.",
+    "isSelected": true
+  },
+  {
+    "id": 7,
+    "prompt": "Me gustaria que admires mi progreso en el ingles, que seas una IA amable.",
     "isSelected": false
   }
 ]

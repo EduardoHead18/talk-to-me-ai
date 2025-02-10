@@ -21,7 +21,7 @@ postgres/*
 /build
 
 docker-compose.yml
-
+prompts.json
 # misc
 .DS_Store
 *.pem
@@ -41,3 +41,4 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+src/app/api/utils/prompts.json
