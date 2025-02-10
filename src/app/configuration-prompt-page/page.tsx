@@ -31,9 +31,11 @@ function ConfigurationPromptPage() {
   // load the status with the localstorage data (avoid passing getStorage directly in the prompt list state to prevent rendering in each update)
   useEffect(() => {
     const storedPromptList = getPromptListLocalStorage();
+    console.log(storedPromptList)
     const selectedOptionFromStorage = storedPromptList.find(
       (p) => p.isSelected
     );
+    console.log(selectedOptionFromStorage)
     setPromptList(storedPromptList);
     if (selectedOptionFromStorage) {
       setSelectedOption(selectedOptionFromStorage.prompt);
@@ -42,14 +44,16 @@ function ConfigurationPromptPage() {
 
   //update
   const handleOptionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedOption(event.target.value);
-    setPromptList(prevPromptList =>
-      prevPromptList.map(prompt =>
-        prompt.prompt === event.target.value
-          ? { ...prompt, isSelected: true }
-          : { ...prompt, isSelected: false }
-      )
+    const newSelectedPrompt = event.target.value;
+    setSelectedOption(newSelectedPrompt);
+    const updatedPromptList = promptList.map(prompt =>
+      prompt.prompt === newSelectedPrompt
+        ? { ...prompt, isSelected: true }
+        : { ...prompt, isSelected: false }
     );
+    // save in the state and locals
+    setPromptList(updatedPromptList);
+    savePromptListLocalStorage(updatedPromptList);
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
