@@ -9,13 +9,12 @@ import { BsFillSendFill } from "react-icons/bs";
 import { RiResetLeftFill } from "react-icons/ri";
 import { ChatComponent } from "../components/chat-components/ChatComponent";
 import { motion } from "motion/react";
-import useChatStore from "../store/useChatStore";
 
 export const HomeComponent = () => {
   const [browserSupport, setBrowserSupport] = useState(true);
   const [finishedRecordig, setFinishedRecordig] = useState(false);
   const [messageSend, setMessageSend] = useState<string>();
-  
+
   const {
     transcript,
     listening,
@@ -39,7 +38,7 @@ export const HomeComponent = () => {
   };
 
   const stopListeningRecognition = async () => {
-    if (!listening) return
+    if (!listening) return;
     try {
       await SpeechRecognition.stopListening();
       setTimeout(() => {
@@ -53,23 +52,22 @@ export const HomeComponent = () => {
 
   return (
     <motion.div
-    initial={{ opacity: 0, scale: 1 }}
-    animate={{ opacity: 1 }}
-    transition={{
-      duration: 0.8,
-      delay: 0.2,
-      ease: [0, 0.71, 0.2, 1.01],
-  }}
-
-    className="flex flex-col h-screen">
+      initial={{ opacity: 0, scale: 1 }}
+      animate={{ opacity: 1 }}
+      transition={{
+        duration: 0.8,
+        delay: 0.2,
+        ease: [0, 0.71, 0.2, 1.01],
+      }}
+      className="flex flex-col min-h-screen"
+    >
       {browserSupport ? (
         <>
           {/*chat*/}
-          <main className="flex-grow mt-20 mx-2 mb-40">
+          <main className="flex-grow mt-20 mx-2 mb-40 ">
             <div className="p-4 mb-4 flex justify-start bg-gray-200 text-black max-w-xs rounded-lg ">
-              Hi, let&apos;s talk dude!       
-            </div> 
-            
+              Hi, let&apos;s talk dude!
+            </div>
             {finishedRecordig && (
               <ChatComponent messageMe={messageSend}></ChatComponent>
             )}
