@@ -9,6 +9,7 @@ import { BsFillSendFill } from "react-icons/bs";
 import { RiResetLeftFill } from "react-icons/ri";
 import { ChatComponent } from "../components/chat-components/ChatComponent";
 import { motion } from "motion/react";
+import useChatStore from "../store/useChatStore";
 
 export const HomeComponent = () => {
   const [browserSupport, setBrowserSupport] = useState(true);
@@ -38,11 +39,16 @@ export const HomeComponent = () => {
   };
 
   const stopListeningRecognition = async () => {
-    await SpeechRecognition.stopListening();
-    setTimeout(() => {
-      setMessageSend(transcript);
-    }, 100);
-    setFinishedRecordig(true);
+    if (!listening) return
+    try {
+      await SpeechRecognition.stopListening();
+      setTimeout(() => {
+        setMessageSend(transcript);
+      }, 100);
+      setFinishedRecordig(true);
+    } catch (error) {
+      throw new Error("Error stopping SpeechRecognition");
+    }
   };
 
   return (
