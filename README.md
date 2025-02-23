@@ -1,4 +1,4 @@
-## Talk English with AI by Eduardo
+## Talk English with AI by Eduardo 🤖
 
 Speak English with AI is an application developed with Next.js 15 that helps you improve your English skills through interactive conversations with an artificial intelligence.
 
@@ -14,7 +14,7 @@ Speak English with AI is an application developed with Next.js 15 that helps you
 - [Next.js 15](https://nextjs.org/)
 - [React](https://reactjs.org/)
 - [Node.js](https://nodejs.org/)
-- [OpenAI API](https://openai.com/)
+- [GeminiAI](https://gemini.google.com/)
 
 ## Installation
 
