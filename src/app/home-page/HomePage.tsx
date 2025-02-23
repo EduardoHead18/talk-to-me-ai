@@ -32,8 +32,8 @@ export const HomeComponent = () => {
     try {
       resetTranscript();
       SpeechRecognition.startListening({ continuous: true, language: "en-US" });
-    } catch (error) {
-      console.error("Error starting SpeechRecognition:", error);
+    } catch (error: any) {
+      throw new Error(error);
     }
   };
 
@@ -45,8 +45,8 @@ export const HomeComponent = () => {
         setMessageSend(transcript);
       }, 100);
       setFinishedRecordig(true);
-    } catch (error) {
-      throw new Error("Error stopping SpeechRecognition");
+    } catch (error: any) {
+      throw new Error(error);
     }
   };
 

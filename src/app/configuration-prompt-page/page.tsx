@@ -31,11 +31,9 @@ function ConfigurationPromptPage() {
   // load the status with the localstorage data (avoid passing getStorage directly in the prompt list state to prevent rendering in each update)
   useEffect(() => {
     const storedPromptList = getPromptListLocalStorage();
-    (storedPromptList)
     const selectedOptionFromStorage = storedPromptList.find(
       (p) => p.isSelected
     );
-    (selectedOptionFromStorage)
     setPromptList(storedPromptList);
     if (selectedOptionFromStorage) {
       setSelectedOption(selectedOptionFromStorage.prompt);
@@ -46,7 +44,7 @@ function ConfigurationPromptPage() {
   const handleOptionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const newSelectedPrompt = event.target.value;
     setSelectedOption(newSelectedPrompt);
-    const updatedPromptList = promptList.map(prompt =>
+    const updatedPromptList = promptList.map((prompt) =>
       prompt.prompt === newSelectedPrompt
         ? { ...prompt, isSelected: true }
         : { ...prompt, isSelected: false }
@@ -99,12 +97,11 @@ function ConfigurationPromptPage() {
 
   const sendToApiLocalStorage = async () => {
     try {
-      await sendPromptToApi(promptList)
+      await sendPromptToApi(promptList);
     } catch (error) {
-      throw new Error("Error sending prompts to the API")
+      throw new Error("Error sending prompts to the API");
     }
-  }
-    
+  };
 
   return (
     <div className="h-screen pt-24 bg-black ">
@@ -127,14 +124,13 @@ function ConfigurationPromptPage() {
             transition={transition}
             className="form-control"
           >
-            
             <label className="label cursor-pointer">
               <span className="label-text">{item.prompt}</span>
               <input
                 type="radio"
                 name="aiPersonality"
                 value={item.prompt}
-                checked={selectedOption === item.prompt} 
+                checked={selectedOption === item.prompt}
                 onChange={handleOptionChange}
                 className="radio radio-warning"
               />

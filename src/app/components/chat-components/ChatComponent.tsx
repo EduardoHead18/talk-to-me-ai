@@ -13,12 +13,12 @@ export const ChatComponent: React.FC<ChatComponentProps> = ({ messageMe }) => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const messages = useChatStore((state) => state.messages);
   const addMessage = useChatStore((state) => state.addMessage);
-  //const zustandMessage = useChatStore((state)=>state.messages)
 
   const userMessageAdd = async () => {
     if (messageMe) {
       addMessage({ user: "me", message: messageMe });
       const responseApi = await postApiGemini(messageMe);
+      console.log("message from client: ", messageMe);
       setTimeout(() => {
         addMessage({ user: "ai", message: responseApi });
         speak(responseApi);
