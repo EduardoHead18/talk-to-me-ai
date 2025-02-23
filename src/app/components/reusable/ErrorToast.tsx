@@ -1,4 +1,3 @@
-
 export const ToastError = () => {
   return (
     <div role="alert" className="alert alert-error mt-10">

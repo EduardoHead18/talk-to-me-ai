@@ -8,7 +8,9 @@ try {
   if (!fs.existsSync(dataDir)) {
     fs.mkdirSync(dataDir);
   }
-} catch (error) {}
+} catch {
+  throw new Error("Error creating data directory");
+}
 
 try {
   if (!fs.existsSync(filePath)) {
@@ -24,7 +26,9 @@ try {
       ])
     );
   }
-} catch (error) {}
+} catch {
+  throw new Error("Error creating prompts.json file");
+}
 
 export const getPrompts = (): IPromptList[] => {
   try {
@@ -35,13 +39,15 @@ export const getPrompts = (): IPromptList[] => {
     } else {
       throw new Error("Data is not an array");
     }
-  } catch (error: any) {
-    throw new Error(error);
+  } catch {
+    throw new Error("Error reading prompts.json file");
   }
 };
 
 export const savePrompts = (prompts: any) => {
   try {
     fs.writeFileSync(filePath, JSON.stringify(prompts, null, 2));
-  } catch (error) {}
+  } catch {
+    throw new Error("Error saving prompts to prompts.json file");
+  }
 };

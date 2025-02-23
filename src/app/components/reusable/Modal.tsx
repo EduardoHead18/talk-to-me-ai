@@ -1,3 +1,5 @@
+import { IModalProps } from "@/app/utils/interface/IModal";
+
 export const Modal : React.FC<IModalProps> = ({title, description, action}) => {
   return (
     <>

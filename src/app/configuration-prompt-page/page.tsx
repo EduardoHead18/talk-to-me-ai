@@ -4,6 +4,7 @@ import { ToastError } from "../components/reusable/ErrorToast";
 import { Modal } from "../components/reusable/Modal";
 import { motion } from "motion/react";
 import { IoSaveOutline } from "react-icons/io5";
+import { IPromptList } from "../utils/interface/IPromptList"
 
 import {
   getPromptListLocalStorage,
