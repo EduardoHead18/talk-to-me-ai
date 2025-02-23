@@ -89,7 +89,8 @@ function ConfigurationPromptPage() {
     setErrorPrompt(false);
 
     getPromptListLocalStorage();
-    const documentVar: any = document.getElementById("my_modal_1");
+    const documentVar =
+      (document.getElementById("my_modal_1") as HTMLDialogElement) || null;
     if (documentVar) {
       documentVar.showModal();
     }
@@ -98,7 +99,7 @@ function ConfigurationPromptPage() {
   const sendToApiLocalStorage = async () => {
     try {
       await sendPromptToApi(promptList);
-    } catch (error) {
+    } catch {
       throw new Error("Error sending prompts to the API");
     }
   };

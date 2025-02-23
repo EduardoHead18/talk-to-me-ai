@@ -28,7 +28,7 @@ export async function POST(req: NextRequest) {
       { message: "Data saved successfully" },
       { status: 200 }
     );
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: "Error saving prompts" },
       { status: 400 }

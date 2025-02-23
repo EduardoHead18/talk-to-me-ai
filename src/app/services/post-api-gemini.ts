@@ -9,24 +9,28 @@ export const postApiGemini = async (messageMe: string): Promise<string> => {
     });
     const data = await response.json();
     return data.message;
-  } catch (error: any) {
-    throw new Error(error.message);
+  } catch {
+    throw new Error("Error in postApiGemini");
   }
 };
 
 export const sendPromptToApi = async (dataLocalStorage: IPromptList[]) => {
-  const response = await fetch("api/gemini/save-prompt", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(dataLocalStorage),
-  });
+  try {
+    const response = await fetch("api/gemini/save-prompt", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(dataLocalStorage),
+    });
 
-  if (!response.ok) {
-    throw new Error(`HTTP error! status: ${response.status}`);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data.message;
+  } catch {
+    throw new Error("Error in sendPromptToApi");
   }
-
-  const data = await response.json();
-  return data.message;
 };

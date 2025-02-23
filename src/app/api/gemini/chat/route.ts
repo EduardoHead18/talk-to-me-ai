@@ -27,7 +27,6 @@ const model = genAI.getGenerativeModel({ ...configGemini });
 export async function POST(req: NextRequest): Promise<NextResponse> {
   const { message } = await req.json();
   const prompts: IPromptList[] = getPrompts();
-  console.log("Prompts:", prompts);
   const promptSelected = prompts.find(
     (item: IPromptList) => item.isSelected === true
   );
@@ -56,7 +55,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   });
 
   try {
-    let result = await chat.sendMessage(message);
+    const result = await chat.sendMessage(message);
     chatHistory.push({
       role: "model",
       parts: [{ text: result.response.text() }],

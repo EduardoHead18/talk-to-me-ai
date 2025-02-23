@@ -18,7 +18,6 @@ export const ChatComponent: React.FC<ChatComponentProps> = ({ messageMe }) => {
     if (messageMe) {
       addMessage({ user: "me", message: messageMe });
       const responseApi = await postApiGemini(messageMe);
-      console.log("message from client: ", messageMe);
       setTimeout(() => {
         addMessage({ user: "ai", message: responseApi });
         speak(responseApi);

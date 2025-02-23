@@ -1,4 +1,4 @@
-let initialPromptList: IPromptList[] = [
+const initialPromptList: IPromptList[] = [
   {
     id: 1,
     prompt:
@@ -14,11 +14,18 @@ let initialPromptList: IPromptList[] = [
 ];
 
 export const savePromptListLocalStorage = (promptList: IPromptList[]): void => {
-  localStorage.setItem("promptList", JSON.stringify(promptList));
+  try {
+    localStorage.setItem("promptList", JSON.stringify(promptList));
+  } catch {
+    throw new Error("Error saving prompt list to local storage");
+  }
 };
 
 export const getPromptListLocalStorage = (): IPromptList[] => {
-  const promptList = localStorage.getItem("promptList");
-  return promptList ? JSON.parse(promptList) : initialPromptList;
+  try {
+    const promptList = localStorage.getItem("promptList");
+    return promptList ? JSON.parse(promptList) : initialPromptList;
+  } catch {
+    throw new Error("Error getting prompt list from local storage");
+  }
 };
-

@@ -4,19 +4,11 @@ import path from "path";
 const dataDir = path.resolve(process.cwd(), "src/app/api/utils/");
 const filePath = path.join(dataDir, "prompts.json");
 
-interface IPrompt {
-  id: number;
-  prompt: string;
-  isSelected: boolean;
-}
-
 try {
   if (!fs.existsSync(dataDir)) {
     fs.mkdirSync(dataDir);
   }
-} catch (error) {
-  console.error("Error creating directory:", error);
-}
+} catch (error) {}
 
 try {
   if (!fs.existsSync(filePath)) {
@@ -32,26 +24,24 @@ try {
       ])
     );
   }
-} catch (error) {
-  console.error("Error creating file:", error);
-}
+} catch (error) {}
 
-// Función para obtener los prompts desde el archivo
-export const getPrompts = () => {
+export const getPrompts = (): IPromptList[] => {
   try {
     const data = fs.readFileSync(filePath, "utf-8");
-    return JSON.parse(data);
-  } catch (error) {
-    console.error("Error reading file:", error);
-    return [];
+    const parsedData = JSON.parse(data);
+    if (Array.isArray(parsedData)) {
+      return parsedData;
+    } else {
+      throw new Error("Data is not an array");
+    }
+  } catch (error: any) {
+    throw new Error(error);
   }
 };
 
-// Función para guardar los prompts en el archivo
-export const savePrompts = (prompts: IPrompt) => {
+export const savePrompts = (prompts: any) => {
   try {
     fs.writeFileSync(filePath, JSON.stringify(prompts, null, 2));
-  } catch (error) {
-    console.error("Error writing file:", error);
-  }
+  } catch (error) {}
 };
