@@ -13,9 +13,7 @@ export const ChatComponent: React.FC<ChatComponentProps> = ({ messageMe }) => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const messages = useChatStore((state) => state.messages);
   const addMessage = useChatStore((state) => state.addMessage);
-  const zustandMessage = useChatStore((state)=>state.messages)
-
-  console.log("menssage from zustand: ", zustandMessage)
+  //const zustandMessage = useChatStore((state)=>state.messages)
 
   const userMessageAdd = async () => {
     if (messageMe) {

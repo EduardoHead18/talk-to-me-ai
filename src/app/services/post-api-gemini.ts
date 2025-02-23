@@ -24,6 +24,5 @@ export const postApiGemini = async (messageMe:string): Promise<string> => {
     }
     
     const data = await response.json();
-    console.log("from data:", data)
     return data.message
   }

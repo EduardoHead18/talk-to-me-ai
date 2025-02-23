@@ -31,11 +31,11 @@ function ConfigurationPromptPage() {
   // load the status with the localstorage data (avoid passing getStorage directly in the prompt list state to prevent rendering in each update)
   useEffect(() => {
     const storedPromptList = getPromptListLocalStorage();
-    console.log(storedPromptList)
+    (storedPromptList)
     const selectedOptionFromStorage = storedPromptList.find(
       (p) => p.isSelected
     );
-    console.log(selectedOptionFromStorage)
+    (selectedOptionFromStorage)
     setPromptList(storedPromptList);
     if (selectedOptionFromStorage) {
       setSelectedOption(selectedOptionFromStorage.prompt);
@@ -85,7 +85,6 @@ function ConfigurationPromptPage() {
 
   const openModal = () => {
     if (newPrompt === "" || newPrompt.length < 4) {
-      console.log("error en el prompt");
       setErrorPrompt(true);
       return;
     }
@@ -101,9 +100,8 @@ function ConfigurationPromptPage() {
   const sendToApiLocalStorage = async () => {
     try {
       await sendPromptToApi(promptList)
-      console.log("Prompts sent to API successfully");
     } catch (error) {
-      console.log(error)
+      throw new Error("Error sending prompts to the API")
     }
   }
     

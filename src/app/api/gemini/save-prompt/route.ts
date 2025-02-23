@@ -7,7 +7,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
   const prompts: IPromptList[] = body;
 
   if (!Array.isArray(prompts) || prompts.length === 0) {
-    console.log("error 1:", prompts);
     return NextResponse.json(
       {
         error: "Prompt list is required and cannot be empty",
