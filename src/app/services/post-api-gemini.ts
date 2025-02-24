@@ -1,3 +1,5 @@
+import { IPromptList } from "../utils/interface/IPromptList";
+
 export const postApiGemini = async (messageMe: string): Promise<string> => {
   try {
     const response = await fetch("api/gemini/chat", {

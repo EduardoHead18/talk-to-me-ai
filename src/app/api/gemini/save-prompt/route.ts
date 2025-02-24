@@ -1,6 +1,7 @@
 "use server";
 import { NextRequest, NextResponse } from "next/server";
 import { savePrompts } from "../../utils/create-json-list";
+import { IPromptList } from "@/app/utils/interface/IPromptList";
 
 export async function POST(req: NextRequest) {
   const body = await req.json();

@@ -1,3 +1,5 @@
+import { IPromptList } from "../interface/IPromptList";
+
 const initialPromptList: IPromptList[] = [
   {
     id: 1,

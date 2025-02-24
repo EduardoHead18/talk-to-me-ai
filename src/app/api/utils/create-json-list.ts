@@ -1,3 +1,4 @@
+import { IPromptList } from "@/app/utils/interface/IPromptList";
 import fs from "fs";
 import path from "path";
 

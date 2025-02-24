@@ -2,6 +2,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { getPrompts } from "../../utils/create-json-list";
+import { IPromptList } from "@/app/utils/interface/IPromptList";
 
 const genAI = new GoogleGenerativeAI(process.env.API_KEY_GEMINI!);
 
