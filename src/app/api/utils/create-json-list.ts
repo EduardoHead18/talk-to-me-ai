@@ -45,7 +45,7 @@ export const getPrompts = (): IPromptList[] => {
   }
 };
 
-export const savePrompts = (prompts: any) => {
+export const savePrompts = (prompts: IPromptList) => {
   try {
     fs.writeFileSync(filePath, JSON.stringify(prompts, null, 2));
   } catch {
