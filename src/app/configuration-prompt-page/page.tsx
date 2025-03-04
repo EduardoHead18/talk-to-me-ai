@@ -4,7 +4,7 @@ import { ToastError } from "../components/reusable/ErrorToast";
 import { Modal } from "../components/reusable/Modal";
 import { motion } from "motion/react";
 import { IoSaveOutline } from "react-icons/io5";
-import { IPromptList } from "../utils/interface/IPromptList"
+import { IPromptList } from "../utils/interface/IPromptList";
 
 import {
   getPromptListLocalStorage,
@@ -68,11 +68,16 @@ function ConfigurationPromptPage() {
   };
 
   const addNewPrompt = () => {
+    //improve prompt
+    const improvePrompt =
+      "It doesn't matter if the message you received is in Spanish, simply respond in English according to the topic that was sent to you in this case it is: " +
+      newPrompt;
+
     const updatePromptList = [
       ...promptList,
       {
         id: promptList.length + 1,
-        prompt: newPrompt,
+        prompt: improvePrompt,
         isSelected: false,
       },
     ];
